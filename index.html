@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indicações | ATC — Análise • Tecnologia • Controle</title>
+  <meta name="description" content="Vitrine curada de livros de aviação, periféricos para simulador de voo, cursos preparatórios ANAC/ICAO e equipamentos de setup." />
+  <style>
+    :root {
+      --bg: #070b12;
+      --surface: #0e1522;
+      --surface-hover: #141e30;
+      --border: #1e2c44;
+      --text: #e8eef7;
+      --muted: #8fa1bc;
+      --gold: #d4af37;
+      --gold-soft: rgba(212, 175, 55, 0.14);
+      --cyan: #38bdf8;
+      --cyan-soft: rgba(56, 189, 248, 0.14);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at top, #0f1a2d 0%, var(--bg) 48%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 28px 16px 48px;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .radar-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-soft);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .radar-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 10px var(--gold);
+    }
+
+    h1 {
+      font-size: clamp(1.45rem, 4vw, 2.05rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 560px;
+      margin: 0 auto 16px;
+    }
+
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .social-link:hover {
+      border-color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .search-box {
+      position: relative;
+      width: 100%;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.96rem;
+      padding: 13px 16px 13px 42px;
+      border-radius: var(--radius);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--gold);
+    }
+
+    .search-box input::placeholder {
+      color: var(--muted);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .filters::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-btn {
+      flex: 0 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 600;
+      padding: 9px 15px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .filter-btn:hover {
+      color: var(--text);
+      border-color: #32476b;
+    }
+
+    .filter-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #090d14;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.18s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212, 175, 55, 0.55);
+    }
+
+    .thumb {
+      height: 170px;
+      background: linear-gradient(135deg, #0b1220 0%, #132036 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .thumb svg {
+      width: 58px;
+      height: 58px;
+      opacity: 0.9;
+    }
+
+    .badges {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      pointer-events: none;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+    }
+
+    .badge-cat {
+      background: rgba(7, 11, 18, 0.78);
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .badge-store {
+      background: rgba(7, 11, 18, 0.78);
+      color: var(--gold);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    .card-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      text-decoration: none;
+      background: var(--gold);
+      color: #080c12;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 11px 14px;
+      border-radius: 10px;
+      transition: filter 0.18s ease, transform 0.12s ease;
+    }
+
+    .cta:hover {
+      filter: brightness(1.08);
+    }
+
+    .cta:active {
+      transform: scale(0.98);
+    }
+
+    .empty-state {
+      text-align: center;
+      color: var(--muted);
+      padding: 40px 16px;
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      grid-column: 1 / -1;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    footer p + p {
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="radar-badge">
+        <span class="radar-dot"></span>
+        ATC • Análise • Tecnologia • Controle
+      </div>
+      <h1>Vitrine de Indicações</h1>
+      <p class="subtitle">
+        Livros de aviação, periféricos para simulador de voo, preparatórios ANAC/ICAO e itens de setup recomendados no canal.
+      </p>
+      <div class="social-row">
+        <a class="social-link" href="https://youtube.com/@FELIKSATC" target="_blank" rel="noopener noreferrer">
+          ▶ YouTube @FELIKSATC
+        </a>
+        <a class="social-link" href="https://instagram.com/atc.oficial.brasil" target="_blank" rel="noopener noreferrer">
+          ◎ Instagram @atc.oficial.brasil
+        </a>
+      </div>
+    </header>
+
+    <section class="controls" aria-label="Filtros e busca">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+        <input id="searchInput" type="search" placeholder="Buscar livro, joystick, curso ou acessório..." autocomplete="off" />
+      </div>
+      <div id="filterRow" class="filters"></div>
+    </section>
+
+    <main id="productGrid" class="grid" aria-live="polite"></main>
+
+    <footer>
+      <p><strong>Aviso de transparência:</strong> Alguns links desta página são links de afiliado (Amazon, Hotmart, Mercado Livre e Shopee). Ao comprar por eles, você apoia o canal sem pagar nada a mais por isso.</p>
+      <p>Os preços e a disponibilidade podem variar diretamente na loja parceira.</p>
+    </footer>
+  </div>
+
+  <!-- Lista de produtos separada para facilitar a manutenção -->
+  <script src="./produtos.js"></script>
+  <script>
+    const ICONES_CATEGORIA = {
+      "Livros": `<svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+      "Simulador": `<svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.6"><path d="M12 2v10"/><circle cx="12" cy="14" r="3"/><path d="M5 20h14"/><path d="M8 20l1-3h6l1 3"/></svg>`,
+      "Cursos": `<svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.6"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`,
+      "Setup": `<svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.6"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
+      "Miniaturas": `<svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.6"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>`
+    };
+
+    const ICONE_PADRAO = `<svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg>`;
+
+    const filterRow = document.getElementById("filterRow");
+    const productGrid = document.getElementById("productGrid");
+    const searchInput = document.getElementById("searchInput");
+
+    let categoriaAtiva = "Todos";
+    let termoBusca = "";
+
+    const categorias = ["Todos", ...new Set(PRODUTOS.map(p => p.categoria))];
+
+    function renderFiltros() {
+      filterRow.innerHTML = categorias.map(cat => `
+        <button class="filter-btn ${cat === categoriaAtiva ? "active" : ""}" data-cat="${cat}">
+          ${cat}
+        </button>
+      `).join("");
+
+      filterRow.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          categoriaAtiva = btn.dataset.cat;
+          renderFiltros();
+          renderProdutos();
+        });
+      });
+    }
+
+    function renderProdutos() {
+      const filtrados = PRODUTOS.filter(item => {
+        const matchCat = categoriaAtiva === "Todos" || item.categoria === categoriaAtiva;
+        const texto = `${item.nome} ${item.descricao} ${item.categoria} ${item.loja}`.toLowerCase();
+        const matchBusca = texto.includes(termoBusca.toLowerCase());
+        return matchCat && matchBusca;
+      });
+
+      if (filtrados.length === 0) {
+        productGrid.innerHTML = `<div class="empty-state">Nenhum item encontrado para essa busca.</div>`;
+        return;
+      }
+
+      productGrid.innerHTML = filtrados.map(item => {
+        const media = item.imagem
+          ? `<img src="${item.imagem}" alt="${item.nome}" loading="lazy" />`
+          : (ICONES_CATEGORIA[item.categoria] || ICONE_PADRAO);
+
+        return `
+          <article class="card">
+            <div class="thumb">
+              <div class="badges">
+                <span class="badge badge-cat">${item.categoria}</span>
+                <span class="badge badge-store">${item.loja}</span>
+              </div>
+              ${media}
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">${item.nome}</h2>
+              <p class="card-desc">${item.descricao}</p>
+              <a class="cta" href="${item.link}" target="_blank" rel="noopener noreferrer sponsored">
+                ${item.textoBotao || `Conferir na ${item.loja}`} →
+              </a>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    searchInput.addEventListener("input", (e) => {
+      termoBusca = e.target.value.trim();
+      renderProdutos();
+    });
+
+    renderFiltros();
+    renderProdutos();
+  </script>
+</body>
+</html>
