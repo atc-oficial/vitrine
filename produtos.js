@@ -14,7 +14,7 @@ const PRODUTOS = [
     categoria: "Drones",
     loja: "Amazon",
     descricao: "Tecnologia profissional em um design ultracompacto: O drone mini mais avançado da DJI, combinando recursos de ponta com portabilidade, ideal tanto para iniciantes quanto para criadores experientes.",
-    imagem: "img/drone1.jpeg",
+    imagem: "img/drone1.jpg",
     link: "https://link.amazon/B0ecsezMA",
     textoBotao: "Conferir preço na Amazon"
   }
