@@ -17,5 +17,14 @@ const PRODUTOS = [
     imagem: "img/drone1.jpg",
     link: "https://link.amazon/B0ecsezMA",
     textoBotao: "Conferir preço na Amazon"
+  },
+  {
+    nome: "Drone Zangão E88 Pro Dobrável 4K HD Dual Camera (Preto, 4K + 1 bateria)",
+    categoria: "Drones",
+    loja: "Amazon",
+    descricao: "Quadcopter dobrável com bolsa de armazenamento, câmera dupla 4K HD com WiFi FPV, 3 níveis de velocidade, luz LED, modo Altitude Hold, modo sem cabeça, voo por trajetória e retorno automático de uma tecla.",
+    imagem: "img/drone-e88-pro.jpg",
+    link: "https://link.amazon/B01PAduMg",
+    textoBotao: "Conferir preço na Amazon"
   }
 ];
